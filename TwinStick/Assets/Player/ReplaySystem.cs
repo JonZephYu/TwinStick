@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ReplaySystem : MonoBehaviour {
 
-    private const int BUFFER_FRAMES = 100;
+    private GameManager gameManager;
+    private const int BUFFER_FRAMES = 1000;
     private MyKeyFrame[] keyFrames = new MyKeyFrame[BUFFER_FRAMES];
-
 
     //Rigidbody needed to swap toggle isKinematic.  Want rigidBody to be kinematic during replay mode.  
     private Rigidbody rigidBody;
+
+    private int bufferSize = BUFFER_FRAMES;
+    private int lastRecordedFrame = 0, nextRecordedFrame = 0;
 
 
 
@@ -17,17 +20,35 @@ public class ReplaySystem : MonoBehaviour {
 	void Start () {
         //MyKeyFrame testKey = new MyKeyFrame(2.0f, Vector3.up, Quaternion.identity);
         rigidBody = GetComponent<Rigidbody>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Record();
+        if (gameManager.isRecording()) {
+            Record();
+        }
+        else {
+            PlayBack();
+        }
 
     }
 
     private void PlayBack() {
         rigidBody.isKinematic = true;
-        int frame = Time.frameCount % BUFFER_FRAMES;
+
+
+        //if never reached full cycle
+        //set new buffersize to last recorded frame
+        //Haven't reached end of buffer yet
+        if (Time.frameCount < bufferSize) {
+            //Change bufferSize to current elapsed time frame.  
+            bufferSize = Time.frameCount;
+            lastRecordedFrame = Time.frameCount;
+        }
+
+
+        int frame = Time.frameCount % bufferSize;
         Debug.Log("Reading frame + " + frame);
 
         transform.position = keyFrames[frame].position;
@@ -37,9 +58,11 @@ public class ReplaySystem : MonoBehaviour {
     }
 
     private void Record() {
+        bufferSize = BUFFER_FRAMES;
+
         rigidBody.isKinematic = false;
         //Loops between 0 and 100
-        int frame = Time.frameCount % BUFFER_FRAMES;
+        int frame = Time.frameCount % bufferSize;
         float time = Time.time;
         Debug.Log("Writing frame + " + frame);
 
