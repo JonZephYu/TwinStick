@@ -64,7 +64,7 @@ public class ReplaySystem : MonoBehaviour {
         //Loops between 0 and 100
         int frame = Time.frameCount % bufferSize;
         float time = Time.time;
-        Debug.Log("Writing frame + " + frame);
+        //Debug.Log("Writing frame + " + frame);
 
 
         keyFrames[frame] = new MyKeyFrame(time, transform.position, transform.rotation);

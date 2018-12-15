@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour {
 
     private bool recording = true;
 
+    private void Start() {
+        PlayerPrefsManager.UnlockLevel(1);
+        Debug.Log(PlayerPrefsManager.IsLevelUnlocked(1));
+        Debug.Log(PlayerPrefsManager.IsLevelUnlocked(2));
+    }
+
     // Update is called once per frame
     void Update() {
         if (CrossPlatformInputManager.GetButton("Fire1")) {
