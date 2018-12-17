@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Playback mode");
             recording = false;
         }
+        else if (CrossPlatformInputManager.GetButton("Fire2")) {
+            Debug.Log("Rewind mode");
+            recording = false;
+        }
         else {
             Debug.Log("Record mode");
             recording = true;

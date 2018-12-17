@@ -12,7 +12,7 @@ public class ReplaySystem : MonoBehaviour {
     private Rigidbody rigidBody;
 
     private int bufferSize = BUFFER_FRAMES;
-    private int lastRecordedFrame = 0, nextRecordedFrame = 0;
+    private int lastRecordedFrame = 0, nextRecordedFrame = 0, lastPlayedFrame = 0;
 
 
 
@@ -29,7 +29,8 @@ public class ReplaySystem : MonoBehaviour {
             Record();
         }
         else {
-            PlayBack();
+            //PlayBack();
+            Rewind();
         }
 
     }
@@ -57,6 +58,43 @@ public class ReplaySystem : MonoBehaviour {
 
     }
 
+    private void Rewind() {
+        rigidBody.isKinematic = true;
+
+
+        //if never reached full cycle
+        //set new buffersize to last recorded frame
+        //Haven't reached end of buffer yet
+        if (Time.frameCount < bufferSize) {
+            //Change bufferSize to current elapsed time frame.  
+            bufferSize = Time.frameCount;
+            lastPlayedFrame = Time.frameCount;
+        }
+
+
+        int frame = Time.frameCount % bufferSize;
+        Debug.Log(lastPlayedFrame);
+
+
+        //Rewind from current frame
+        if (lastPlayedFrame - 1 >= 0) {
+            Debug.Log("Rewinding");
+            transform.position = keyFrames[lastPlayedFrame].position;
+            transform.rotation = keyFrames[lastPlayedFrame].rotation;
+            lastPlayedFrame--;
+        }
+        //If reached the beginning, loop back into the end of the keyFrames.
+        else {
+            lastPlayedFrame = bufferSize - 1;
+            transform.position = keyFrames[lastPlayedFrame].position;
+            transform.rotation = keyFrames[lastPlayedFrame].rotation;
+            lastPlayedFrame--;
+
+        }
+
+
+    }
+
     private void Record() {
         bufferSize = BUFFER_FRAMES;
 
@@ -65,8 +103,8 @@ public class ReplaySystem : MonoBehaviour {
         int frame = Time.frameCount % bufferSize;
         float time = Time.time;
         //Debug.Log("Writing frame + " + frame);
-
-
+        lastPlayedFrame = frame;
+        //Debug.Log(lastPlayedFrame);
         keyFrames[frame] = new MyKeyFrame(time, transform.position, transform.rotation);
     }
 }
