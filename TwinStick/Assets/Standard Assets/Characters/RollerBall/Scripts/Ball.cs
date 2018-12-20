@@ -38,7 +38,7 @@ namespace UnityStandardAssets.Vehicles.Ball
                 //m_Rigidbody.AddTorque(new Vector3(moveDirection.z, 0, -moveDirection.y)*m_MovePower);
 
                 //left right movement in the Z axis, due to the beam being set to be left/right long
-                m_Rigidbody.AddTorque(new Vector3(moveDirection.x, 0, -moveDirection.z) * m_MovePower);
+                m_Rigidbody.AddTorque(new Vector3(moveDirection.z, 0, -moveDirection.x) * m_MovePower);
             }
             else
             {

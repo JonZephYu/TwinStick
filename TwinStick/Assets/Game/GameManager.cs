@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         PlayerPrefsManager.UnlockLevel(1);
-        Debug.Log(PlayerPrefsManager.IsLevelUnlocked(1));
-        Debug.Log(PlayerPrefsManager.IsLevelUnlocked(2));
+        //Debug.Log(PlayerPrefsManager.IsLevelUnlocked(1));
+        //Debug.Log(PlayerPrefsManager.IsLevelUnlocked(2));
         defaultDeltaTime = Time.fixedDeltaTime;
-        Debug.Log(defaultDeltaTime);
+        //Debug.Log(defaultDeltaTime);
 
 }
 

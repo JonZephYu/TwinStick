@@ -73,7 +73,7 @@ public class ReplaySystem : MonoBehaviour {
 
 
         int frame = Time.frameCount % bufferSize;
-        Debug.Log(lastPlayedFrame);
+        //Debug.Log(lastPlayedFrame);
 
 
         //Rewind from current frame
