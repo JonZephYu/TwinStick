@@ -22,11 +22,11 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (!paused) {
-            if (CrossPlatformInputManager.GetButton("Fire1")) {
-                Debug.Log("Playback mode");
-                recording = false;
-            }
-            else if (CrossPlatformInputManager.GetButton("Fire2")) {
+            //if (CrossPlatformInputManager.GetButton("Fire1")) {
+            //    Debug.Log("Playback mode");
+            //    recording = false;
+            //}
+            if (CrossPlatformInputManager.GetButton("Fire2")) {
                 Debug.Log("Rewind mode");
                 recording = false;
             }

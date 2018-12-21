@@ -17,21 +17,21 @@ public class CameraPan : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        Debug.Log("RHoriz" + CrossPlatformInputManager.GetAxis("RHoriz"));
-        Debug.Log("RVert" + CrossPlatformInputManager.GetAxis("RVert"));
+	void LateUpdate () {
+        //Debug.Log("RHoriz" + CrossPlatformInputManager.GetAxis("RHoriz"));
+        //Debug.Log("RVert" + CrossPlatformInputManager.GetAxis("RVert"));
 
         //Rotates camera transform so forward vector points at target position
         transform.LookAt(player.transform);
 
         //Pans camera look according to mouse movement
         //NOTE: camera is constantly LookAt the player, thus panning the camera by mouse will snap back
-        if (Input.GetMouseButton(1)) {
-            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * speed, -Input.GetAxis("Mouse X") * speed, 0));
-            X = transform.rotation.eulerAngles.x;
-            Y = transform.rotation.eulerAngles.y;
-            transform.rotation = Quaternion.Euler(X, Y, 0);
-        }
+        //if (Input.GetMouseButton(0)) {
+        //    transform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * speed, -Input.GetAxis("Mouse X") * speed, 0));
+        //    X = transform.rotation.eulerAngles.x;
+        //    Y = transform.rotation.eulerAngles.y;
+        //    transform.rotation = Quaternion.Euler(X, Y, 0);
+        //}
     }
 
 }
